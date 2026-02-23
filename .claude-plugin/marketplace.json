@@ -1,0 +1,19 @@
+{
+  "name": "agent-hicks-marketplace",
+  "owner": {
+    "name": "Jeffrey Hicks",
+    "homepage": "https://github.com/jrhicks"
+  },
+  "metadata": {
+    "description": "Jeffrey Hicks' personal Claude Code plugin marketplace.",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "kitt",
+      "source": "./plugins/kitt",
+      "description": "Enable Claude Code to speak ultra concise summaries via macOS say.",
+      "version": "3.1.0"
+    }
+  ]
+}

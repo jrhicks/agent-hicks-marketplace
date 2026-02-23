@@ -1,0 +1,20 @@
+{
+  "name": "kitt",
+  "description": "Enable Claude Code to speak ultra concise summaries via macOS say.",
+  "version": "3.1.0",
+  "author": {
+    "name": "Jeffrey Hicks"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/skills/speak/scripts/speak.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
