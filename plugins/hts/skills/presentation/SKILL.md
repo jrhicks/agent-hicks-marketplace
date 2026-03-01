@@ -15,7 +15,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /presentation
+# /hts
 
 **A presentation is a folder.** The user creates a folder, cd's into it, and runs commands. `project-overview.md` in the current working directory tracks metadata and stage. No external board, no folder moves.
 
@@ -99,6 +99,101 @@ Every stage command follows this pattern:
 4. On completion: update `stage` in `project-overview.md` frontmatter
 5. Report: show stage transition and next command
 
+---
+
+## Brain-dump Stage
+
+**Persona: Listener** -- Draw out raw content without organizing. Catch and record verbatim. Ask follow-up questions to draw out more, never to structure. If the dump is thin, initiate a guided brainstorm.
+
+**Do NOT:** Over-structure too early. Edit while dumping. Reorganize content. Suggest structure.
+
+**How it works:**
+- The user shares everything they know about the topic
+- Ask follow-up questions: "What else?", "Any examples?", "What about X?"
+- Offer to pull in external material: "Want me to research anything via web search?"
+- If the user sends files, images, or links, save them to `02-brain-dump/`
+
+**If the dump is thin**, switch to guided brainstorm:
+- "Who is someone in the audience? What do they already know?"
+- "What's the one thing you most want them to walk away with?"
+- "Is there a story or example that captures this?"
+- "What would surprise them?"
+
+**Deliverables:**
+- `02-brain-dump.md` -- TLDR summarizing what was dumped (brief overview, not the content itself)
+- `02-brain-dump/` -- folder with attachments or `notes.md` with raw dump content
+
+---
+
+## Shape Stage
+
+**Persona: Shaper** -- Work through 3 brainstorm sessions then lock in. Lead with proposals drawn from the brain-dump. Present drafts for the user to react to -- don't ask open questions that leave them alone with the work.
+
+**Do NOT:** Answer for the user. Skip brainstorms. Start from blank instead of proposing from brain-dump.
+
+**Guide:** Read `${CLAUDE_PLUGIN_ROOT}/skills/presentation/guides/shape-guide.md` for detailed session instructions.
+
+**Brainstorm sessions (in order):**
+1. **Grounding** (audience, situating, fencing) --> `03-shape/01-grounding.md`
+2. **Core** (salient idea, story, surprise) --> `03-shape/02-core.md`
+3. **Packaging** (symbol, slogan, empowerment promise) --> `03-shape/03-packaging.md`
+
+After each session, write the brainstorm file. Re-anchor context before starting the next.
+
+**Lock-in:** Synthesize all 3 brainstorms into `03-shape.md` -- the compilation downstream stages read. Present for user approval. Should include: audience, situating, fencing, salient idea, story, surprise, symbol, slogan, empowerment promise.
+
+---
+
+## Outline Stage
+
+**Persona: Architect** -- Draft the outline from the locked-in shape. Lead with drafts, not questions.
+
+**Do NOT:** Start from blank. Skip reading the shape compilation. Re-open shape decisions.
+
+**Guides:**
+- `${CLAUDE_PLUGIN_ROOT}/skills/presentation/guides/outline-guide/guide.md`
+- `${CLAUDE_PLUGIN_ROOT}/skills/presentation/guides/outline-guide/inform-guide.md`
+- `${CLAUDE_PLUGIN_ROOT}/skills/presentation/guides/outline-guide/expose-persuade-guide.md`
+
+**Brainstorm topics (in order).** Skip or keep light any that don't apply:
+
+1. **Sections** (`04-outline/01-sections.md`) -- section-by-section structure, medium per section (board vs slides), rough duration
+2. **Delivery** (`04-outline/02-delivery.md`) -- cycling plan, verbal punctuation, hooks, props, how to start, how to stop
+3. **Vision & Contributions** (`04-outline/03-vision-contributions.md`) -- vision, what you've done, contributions the audience should remember. Central for expose/persuade. Can be light for inform.
+
+**Label hints** (flavor emphasis, not structure):
+- **inform** -- Sections and delivery matter most. Vision/contributions can be light.
+- **expose** -- Vision and contributions are the backbone.
+- **persuade** -- Contributions and situating are critical.
+
+**Lock-in:** Synthesize into `04-outline.md`. Present for user approval.
+
+---
+
+## Authoring Stage
+
+**Persona: Author** -- Build the presentation from the outline. The JS file is both the spec and the production artifact. Iterate with the user by regenerating the PPTX and letting them review it directly.
+
+**Do NOT:** Create a separate markdown spec. Re-open shape/outline decisions.
+
+**Image creation steps:** Shift to **Illustrator** persona. Read `${CLAUDE_PLUGIN_ROOT}/skills/presentation/guides/produce-guide.md` for image production (props, chalkboard sequences, story sequences, symbols). Delegate all image generation to sub-agents.
+
+**Process:**
+1. Read `04-outline.md` (the compilation)
+2. Scaffold `05-author/presentation.js` with slide structure from the outline
+3. Generate first PPTX, open for user to review
+4. Iterate: user directs changes by slug-ID, update JS, regenerate
+
+**DEV-LOOP:** Edit `presentation.js`, run `node presentation.js`, user reviews PPTX. Batch edits before regenerating.
+
+**Deliverables:**
+- `05-author/presentation.js` -- single source of truth
+- `05-author/assets/` -- images, sequences
+- `05-author/presentation.pptx` -- generated output (.gitignore)
+- `05-author/presentation.pdf` -- PDF export (.gitignore)
+
+---
+
 ## Slide Slug IDs
 
 Every slide has a slug-ID used to reference it in conversation and in the JS file. The slug is an acronym of the slide title plus a two-digit suffix.
@@ -124,32 +219,18 @@ The authoring stage merges what was previously "specify" and "produce" into a si
 - Asset references
 - Delivery cues
 
-## Deliverable Sequence
-
-Deliverables accumulate in the presentation folder, numbered to align with their stage:
-
-**Start (setup):**
-- `project-overview.md` -- minimal info (topic, audience, label, stage: new)
-- `discussion.md` -- empty, ready for aha moments
-
-**Brain-dump (02):**
-- `02-brain-dump.md` -- TLDR of what was dumped
-- `02-brain-dump/` -- raw attachments (images, links, notes)
-
-**Shape (03):**
-- `03-shape/` -- brainstorm sessions (01-grounding, 02-core, 03-packaging)
-- `03-shape.md` -- locked-in shape merging all brainstorms
-
-**Outline (04):**
-- `04-outline/` -- brainstorm sessions (varies by type)
-- `04-outline.md` -- locked-in outline
-
-**Author (05):**
-- `05-author/` -- the authoring workspace
-  - `presentation.js` -- single source of truth (slides, speaker notes, assets, layout)
-  - `assets/` -- images, chalkboard sequences, prop sequences, story sequences
-  - `presentation.pptx` -- generated output (.gitignore)
-  - `presentation.pdf` -- PDF export (.gitignore)
+```javascript
+{
+  slug: 'OSL-01',
+  title: 'One Shot Learning',
+  type: 'content',        // content, chalkboard, section-break, title, contributions, etc.
+  content: [],             // bullet points, text blocks
+  speakerNotes: '',        // full speaker notes with delivery cues
+  deliveryCues: [],        // [verbal punctuation], [question], [cycle], [passion], [pause]
+  asset: null,             // path relative to 05-author/assets/
+  layout: 'default',       // default, wide-image, no-image, star-callback
+}
+```
 
 ## How-to-Speak Reference
 
