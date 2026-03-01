@@ -12,8 +12,14 @@
     {
       "name": "kitt",
       "source": "./plugins/kitt",
-      "description": "Enable Claude Code to speak ultra concise summaries via macOS say.",
-      "version": "3.1.0"
+      "description": "Enable Claude Code to speak ultra concise summaries via Kokoro TTS (mlx-audio).",
+      "version": "3.4.0"
+    },
+    {
+      "name": "hts",
+      "source": "./plugins/hts",
+      "description": "Create presentations following Patrick Winston's how-to-speak methodology.",
+      "version": "0.2.0"
     }
   ]
 }
