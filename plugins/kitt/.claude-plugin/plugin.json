@@ -1,11 +1,21 @@
 {
   "name": "kitt",
-  "description": "Enable Claude Code to speak ultra concise summaries via macOS say.",
-  "version": "3.1.0",
+  "description": "Enable Claude Code to speak ultra concise summaries via Kokoro TTS (mlx-audio). One skill (marker knowledge), three commands (speak-enable, speak-disable, whats-going-on).",
+  "version": "3.4.0",
   "author": {
     "name": "Jeffrey Hicks"
   },
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/skills/speak/scripts/on-enable.sh"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [

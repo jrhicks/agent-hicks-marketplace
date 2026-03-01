@@ -1,12 +1,12 @@
 ---
 name: speak
-description: Internal skill loaded by /kitt:enable-speak. Not user-invocable. Provides marker format rules, voice selection, and speech content guidelines for embedding SPEAK markers in Claude Code responses.
+description: Internal skill loaded by /kitt:speak-enable. Not user-invocable. Provides marker format rules, voice selection, and speech content guidelines for embedding SPEAK markers in Claude Code responses.
 version: 3.1.0
 ---
 
 # kitt:speak -- SPEAK Marker Reference
 
-How to embed speech markers in Claude Code responses. Loaded by `/kitt:enable-speak`, not invoked directly.
+How to embed speech markers in Claude Code responses. Loaded by `/kitt:speak-enable`, not invoked directly.
 
 ## Marker Format
 
@@ -21,7 +21,7 @@ Defaults: your session voice (set at enable time), rate `180` wpm.
 
 ## Control Markers
 
-These are emitted ONLY by `/kitt:enable-speak` and `/kitt:disable-speak`, never in regular responses:
+These are emitted ONLY by `/kitt:speak-enable` and `/kitt:speak-disable`, never in regular responses:
 
 ```
 <!-- SPEAK-ENABLE(voice:Karen) -->**Speech enabled.**             (enable session speech)
@@ -76,14 +76,21 @@ Short version labels like "v3" are OK.
 
 ## Available Voices
 
-Voice is chosen at enable time. First unclaimed voice from the pool:
+Voice is chosen at enable time. First unclaimed voice from the pool (Kokoro TTS via mlx-audio):
 
-| Voice | Style |
-|-------|-------|
-| Daniel | British English |
-| Samantha | American English |
-| Karen | Australian English |
-| Moira | Irish English |
-| Rishi | Indian English |
+| Voice | Style | Grade |
+|-------|-------|-------|
+| af_heart | American Female | A |
+| af_bella | American Female | A- |
+| bf_emma | British Female | B- |
+| af_nicole | American Female | B- |
+| am_fenrir | American Male | C+ |
+| am_michael | American Male | C+ |
+| am_puck | American Male | C+ |
+| bm_george | British Male | C |
+| bm_fable | British Male | C |
+| af_aoede | American Female | C+ |
+| af_kore | American Female | C+ |
+| af_sarah | American Female | C+ |
 
-Override per-marker with `<!-- SPEAK(voice:Name) -->`. Run `say -v '?'` to see all installed voices.
+Override per-marker with `<!-- SPEAK(voice:af_bella) -->`. Full voice list at hexgrad/Kokoro-82M on HuggingFace.

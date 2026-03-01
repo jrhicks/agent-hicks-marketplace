@@ -1,4 +1,4 @@
-# /kitt:disable-speak
+# /kitt:speak-disable
 
 Disable text-to-speech for this session.
 
@@ -14,4 +14,4 @@ Emit the disable marker. Your response MUST include this exact line:
 
 ## Post-disable Behavior
 
-**Stop including `<!-- SPEAK -->` markers in your responses.** The speak skill is no longer active. No more TTS markers until the user runs `/kitt:enable-speak` again.
+**Stop including `<!-- SPEAK -->` markers in your responses.** The speak skill is no longer active. No more TTS markers until the user runs `/kitt:speak-enable` again.

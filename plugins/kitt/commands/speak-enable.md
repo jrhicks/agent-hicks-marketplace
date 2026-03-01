@@ -1,4 +1,4 @@
-# /kitt:enable-speak
+# /kitt:speak-enable
 
 Enable text-to-speech for this session.
 
@@ -18,13 +18,13 @@ Output is a single line:
 
 1. Load the **kitt:speak** skill to learn marker format and rules.
 
-2. Emit the enable marker with the chosen voice. Your response MUST include this exact line (substituting VOICE with the chosen voice name, e.g. `Daniel`, `Samantha`, `Karen`, `Moira`, `Rishi`):
+2. Emit the enable marker with the chosen voice. Your response MUST include this exact line (substituting VOICE with the chosen voice name, e.g. `af_heart`, `af_bella`, `bf_emma`, `am_fenrir`, `bm_george`):
 
 ```
 <!-- SPEAK-ENABLE(voice:VOICE) -->**Speech enabled.**
 ```
 
-Example: `<!-- SPEAK-ENABLE(voice:Karen) -->**Speech enabled.**`
+Example: `<!-- SPEAK-ENABLE(voice:af_heart) -->**Speech enabled.**`
 
 **Do NOT** create any files (`touch`, `echo >`, etc.). The hook handles all file creation when it sees the SPEAK-ENABLE marker.
 

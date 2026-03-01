@@ -10,16 +10,17 @@
 SPEAK_DIR="$HOME/.claude-speak-plugin"
 mkdir -p "$SPEAK_DIR"
 VOICE_LOCK_DIR="$SPEAK_DIR/voices"
-VOICES=("Daniel" "Samantha" "Karen" "Moira" "Rishi")
+# Top-graded Kokoro English voices (A/B tier American + British)
+VOICES=("af_heart" "af_bella" "bf_emma" "af_nicole" "am_fenrir" "am_michael" "am_puck" "bf_emma" "bm_george" "bm_fable" "af_aoede" "af_kore" "af_sarah")
 
 # -- Prerequisites --
-if ! command -v say >/dev/null 2>&1; then
-  echo "ERROR:Speech requires macOS with the say command. Not available on this system."
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "ERROR:Speech requires python3 on PATH."
   exit 0
 fi
 
-if ! command -v python3 >/dev/null 2>&1; then
-  echo "ERROR:Speech requires python3 on PATH."
+if ! python3 -c "import mlx_audio" 2>/dev/null; then
+  echo "ERROR:Speech requires mlx_audio. Install with: pip install mlx-audio misaki[en]"
   exit 0
 fi
 

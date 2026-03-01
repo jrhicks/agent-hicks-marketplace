@@ -4,7 +4,7 @@ Situation report. Render a status table from current context. No tool calls -- j
 
 ## Speech
 
-After the table, add a SPEAK marker that reads out the **Currently** cell. Allowed to be slightly longer than normal -- up to 10 words. Example:
+Before the table, add a SPEAK marker reading the **Currently** cell. Example:
 
 ```
 <!-- SPEAK -->**Halfway through the hook refactor, two files left**
@@ -15,20 +15,27 @@ After the table, add a SPEAK marker that reads out the **Currently** cell. Allow
 Each cell is 5-7 words max. The table IS the answer. Nothing else after it (except the SPEAK marker).
 
 ```
-+-----------+-----------------------------------------+
-| While     | [verb-ing] [thing] for [user/goal]      |
-| Noticed   | [specific problem or motive]            |
-| Currently | [where things stand right now]          |
-| Next      | [very next task to pick up]             |
-| Blocked   | [waiting on user/external]              |
-| Parked    | [set aside, not forgotten]              |
-| Pending   | [uncommitted/unsaved work]              |
-+-----------+-----------------------------------------+
++----------+-----------------------------------------+
+| While     | [verb/stage] [thing] for [who/process]   |
+| Noticed   | [specific problem/motive]                |
+| Currently | [where things stand right now]           |
+| Next      | [very next task to pick up]              |
+| Blocked   | [waiting on user/external]               |
+| Parked    | [set aside, not forgotten]               |
+| Pending   | [uncommitted/unsaved work]               |
++----------+-----------------------------------------+
 ```
+
+## While Cell Logic
+
+1. **Am I inside a process-plugin?** If a process and stage are known, that's most of the context.
+2. **If yes:** `{stage as -ing verb} {process} {thing}` -- e.g., `implementing process tldr`, `specifying mob Textbox`.
+3. **If no process:** fall back to `{verb} {thing} for {who}`.
+4. **If unknown:** write "?".
 
 ## Line Rules
 
-- **While** -- zoom out to the user story. What are you doing and for whom? e.g. "adding TTS for developer feedback".
+- **While** -- what you're doing right now. Process-aware or fallback.
 - **Noticed** -- WHY this work is happening. The specific problem or motive.
 - **Currently** -- status snapshot. What's actually built, tested, or blocked right now.
 - **Next** -- the very next task to pick up.

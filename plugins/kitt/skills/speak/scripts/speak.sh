@@ -24,6 +24,36 @@ DEFAULT_RATE="180"
 SPEAK_DIR="$HOME/.claude-speak-plugin"
 mkdir -p "$SPEAK_DIR"
 VOICE_LOCK_DIR="$SPEAK_DIR/voices"
+TTS_FIFO="$SPEAK_DIR/tts.pipe"
+TTS_PID_FILE="$TTS_FIFO.pid"
+DAEMON_SCRIPT="$(dirname "$0")/tts-daemon.py"
+
+# -- Ensure TTS daemon is running --
+ensure_daemon() {
+  # Check if PID file exists and process is alive
+  if [ -f "$TTS_PID_FILE" ]; then
+    pid=$(cat "$TTS_PID_FILE")
+    if kill -0 "$pid" 2>/dev/null; then
+      return 0  # already running
+    fi
+    rm -f "$TTS_PID_FILE"
+  fi
+  # Create FIFO if missing
+  [ -p "$TTS_FIFO" ] || mkfifo "$TTS_FIFO"
+  # Launch daemon detached
+  nohup python3 "$DAEMON_SCRIPT" "$TTS_FIFO" >/tmp/kitt-tts-daemon.log 2>&1 &
+  disown
+  # Wait briefly for warmup (daemon plays "Ready." on start)
+  sleep 3
+}
+
+# -- Send text to daemon (non-blocking) --
+tts_speak() {
+  local voice="$1" speed="$2" text="$3"
+  ensure_daemon
+  echo "${voice}|${speed}|${text}" > "$TTS_FIFO" &
+  disown
+}
 
 # -- Helper: set terminal tab title --
 # Always sets title. CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1 means Claude Code
@@ -165,8 +195,7 @@ if echo "$LAST_MSG" | grep -q 'SPEAK-DISABLE'; then
   safe_name=$(echo "$DEFAULT_VOICE" | tr ' ()' '_--')
   rm -f "$VOICE_LOCK_DIR/$safe_name"
   rm -f "$ENABLED_FILE"
-  pkill -f "say -v" 2>/dev/null || true
-  say -v "$DEFAULT_VOICE" -r "$DEFAULT_RATE" "Speech disabled" &
+  afplay "$(dirname "$0")/kitt-call-it-a-day.mp3" &
   exit 0
 fi
 
@@ -223,8 +252,11 @@ if [ "$MARKER_COUNT" -gt 0 ]; then
     rate=$(echo "$params" | sed -n 's/.*rate:\([0-9]*\).*/\1/p')
     rate="${rate:-$DEFAULT_RATE}"
 
+    # Map wpm rate to Kokoro speed (180 wpm = 1.0x, scale linearly)
+    speed=$(python3 -c "print(round($rate / 180.0, 2))")
+
     set_tab_title "$voice: $text"
-    say -v "$voice" -r "$rate" "$text"
+    tts_speak "$voice" "$speed" "$text"
     # Touch lock file so mtime reflects last speech activity (enables LRU fallback)
     touch "$VOICE_LOCK_DIR/$(echo "$voice" | tr ' ()' '_--')" 2>/dev/null
   done) &
