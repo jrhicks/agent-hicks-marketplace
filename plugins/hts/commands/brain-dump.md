@@ -11,7 +11,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /presentation:brain-dump <presentation-name>
+# /hts:brain-dump <presentation-name>
 
 Dump raw content for an existing presentation.
 
@@ -41,7 +41,7 @@ Read `project-overview.md` in the current working directory and check the `stage
 - Action: Check which deliverables exist, resume from where we left off
 
 **Error cases:**
-- No `project-overview.md`: "No presentation found in this folder. Use `/presentation:start` first."
+- No `project-overview.md`: "No presentation found in this folder. Use `/hts:start` first."
 - Stage is past `brain-dumping`: "This presentation is already in <stage>. Cannot move backward."
 
 ## Start Mode Process
@@ -87,5 +87,5 @@ Update `project-overview.md` frontmatter: set `stage: shaping`.
 ```
 Brain-dumped: Presentation Title [label]
 Stage: brain-dumping (Done) --> shaping
-Ready for: /presentation:shape presentation-name
+Ready for: /hts:shape presentation-name
 ```

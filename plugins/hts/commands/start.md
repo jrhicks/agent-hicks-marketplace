@@ -11,7 +11,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /presentation:start <presentation-name>
+# /hts:start <presentation-name>
 
 Set up a new presentation folder and introduce the workflow.
 
@@ -89,10 +89,10 @@ Presentation folder is set up. Here's how the process works:
 
 You'll move through 5 stages, one command at a time:
 
-  /presentation:brain-dump <name>   Dump everything you know about the topic
-  /presentation:shape <name>        Extract the core idea, audience, Star elements
-  /presentation:outline <name>      Design the talk architecture
-  /presentation:author <name>       Build slides in JS, iterate on the PPTX
+  /hts:brain-dump <name>   Dump everything you know about the topic
+  /hts:shape <name>        Extract the core idea, audience, Star elements
+  /hts:outline <name>      Design the talk architecture
+  /hts:author <name>       Build slides in JS, iterate on the PPTX
 
 Each stage builds on the last. Brain-dump is raw and messy on purpose --
 shape turns it into something structured. The outline becomes the blueprint
@@ -100,5 +100,5 @@ for authoring, where you'll work directly in a JS file that produces your
 slide deck. Open the PPTX locally anytime and direct changes by slide ID
 (e.g., "update speaker notes on OSL-01").
 
-Ready when you are: /presentation:brain-dump <name>
+Ready when you are: /hts:brain-dump <name>
 ```

@@ -12,7 +12,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /presentation:chalkboard <sequence-name>
+# /hts:chalkboard <sequence-name>
 
 Create a chalkboard sequence -- a 2-frame progressive-reveal drawing on a green chalkboard background. Frame 1 shows a partial drawing (the foundation). Frame 2 shows the complete concept. The audience sees the idea appear as you advance slides.
 

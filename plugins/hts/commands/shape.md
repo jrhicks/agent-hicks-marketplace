@@ -11,7 +11,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /presentation:shape <presentation-name>
+# /hts:shape <presentation-name>
 
 Define audience, extract core idea, build Star elements.
 
@@ -41,8 +41,8 @@ Read `project-overview.md` in the current working directory and check the `stage
 - Action: Check which brainstorm files exist, resume from where we left off
 
 **Error cases:**
-- No `project-overview.md`: "No presentation found in this folder. Use `/presentation:start` first."
-- Stage is `todo`: "Brain-dump is not complete. Run `/presentation:brain-dump` first."
+- No `project-overview.md`: "No presentation found in this folder. Use `/hts:start` first."
+- Stage is `todo`: "Brain-dump is not complete. Run `/hts:brain-dump` first."
 - Stage is past `shaping`: "This presentation is already in <stage>. Cannot move backward."
 
 ## Start Mode Process
@@ -91,5 +91,5 @@ Update `project-overview.md` frontmatter: set `stage: outlining`.
 ```
 Shaped: Presentation Title [label]
 Stage: shaping (Done) --> outlining
-Ready for: /presentation:outline presentation-name
+Ready for: /hts:outline presentation-name
 ```

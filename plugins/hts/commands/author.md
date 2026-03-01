@@ -12,7 +12,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /presentation:author <presentation-name>
+# /hts:author <presentation-name>
 
 Build slides in JS and iterate on the PPTX directly. The JS file is the single source of truth -- it contains slide content, speaker notes, asset references, and layout. No separate spec document.
 

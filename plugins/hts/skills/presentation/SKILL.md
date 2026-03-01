@@ -1,9 +1,9 @@
 ---
-name: presentation
+name: hts
 description: |
   Create presentations following Patrick Winston's how-to-speak methodology.
   Folder-as-presentation model with stage tracking via project-overview.md.
-  Triggers: "/presentation", "presentation brain-dump", "presentation shape".
+  Triggers: "/hts", "hts brain-dump", "hts shape".
 user-invocable: true
 allowed-tools:
   - Bash
@@ -26,12 +26,12 @@ Create presentations using Patrick Winston's how-to-speak methodology. Presentat
 ## Usage
 
 ```
-/presentation:start <presentation-name> [--label inform|expose|persuade]
-/presentation:brain-dump <presentation-name>
-/presentation:shape <presentation-name>
-/presentation:outline <presentation-name>
-/presentation:author <presentation-name>
-/presentation:chalkboard <sequence-name>
+/hts:start <presentation-name> [--label inform|expose|persuade]
+/hts:brain-dump <presentation-name>
+/hts:shape <presentation-name>
+/hts:outline <presentation-name>
+/hts:author <presentation-name>
+/hts:chalkboard <sequence-name>
 ```
 
 All commands operate on the current working directory. The user should cd into their presentation folder before running commands.
@@ -94,7 +94,7 @@ Every stage command follows this pattern:
    - If correct prior stage: update stage, begin work
    - If already at this stage: resume
    - If later stage: error -- "already past this stage"
-   - If no `project-overview.md`: error -- "run /presentation:start first"
+   - If no `project-overview.md`: error -- "run /hts:start first"
 3. Do the work
 4. On completion: update `stage` in `project-overview.md` frontmatter
 5. Report: show stage transition and next command
@@ -161,9 +161,9 @@ Stage guides weave in relevant Winston techniques at the point of use.
 ## Examples
 
 ```
-/presentation:start all-hands-q1 --label inform
-/presentation:brain-dump all-hands-q1
-/presentation:shape all-hands-q1
-/presentation:outline all-hands-q1
-/presentation:author all-hands-q1
+/hts:start all-hands-q1 --label inform
+/hts:brain-dump all-hands-q1
+/hts:shape all-hands-q1
+/hts:outline all-hands-q1
+/hts:author all-hands-q1
 ```

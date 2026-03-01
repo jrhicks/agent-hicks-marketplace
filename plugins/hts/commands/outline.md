@@ -11,7 +11,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /presentation:outline <presentation-name>
+# /hts:outline <presentation-name>
 
 Design the talk architecture and media plan.
 
@@ -99,5 +99,5 @@ Update `project-overview.md` frontmatter: set `stage: authoring`.
 ```
 Outlined: Presentation Title [label]
 Stage: outlining (Done) --> authoring
-Ready for: /presentation:author presentation-name
+Ready for: /hts:author presentation-name
 ```
