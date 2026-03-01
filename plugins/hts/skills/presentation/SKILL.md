@@ -1,5 +1,5 @@
 ---
-name: hts
+name: presentation
 description: |
   Create presentations following Patrick Winston's how-to-speak methodology.
   Folder-as-presentation model with stage tracking via project-overview.md.
@@ -175,6 +175,8 @@ After each session, write the brainstorm file. Re-anchor context before starting
 **Persona: Author** -- Build the presentation from the outline. The JS file is both the spec and the production artifact. Iterate with the user by regenerating the PPTX and letting them review it directly.
 
 **Do NOT:** Create a separate markdown spec. Re-open shape/outline decisions.
+
+**Style guide:** Read `${CLAUDE_PLUGIN_ROOT}/skills/presentation/guides/style-guide.md` for slide types, backgrounds, color palette, typography, and layout rules.
 
 **Image creation steps:** Shift to **Illustrator** persona. Read `${CLAUDE_PLUGIN_ROOT}/skills/presentation/guides/produce-guide.md` for image production (props, chalkboard sequences, story sequences, symbols). Delegate all image generation to sub-agents.
 

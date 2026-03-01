@@ -1,7 +1,7 @@
 ---
 name: chalkboard
-description: Create a chalkboard sequence -- a 2-frame progressive-reveal drawing
-argument-hint: <sequence-name> --partial "<frame 1 description>" --complete "<frame 2 description>"
+description: Create a chalkboard sequence -- progressive-reveal drawings built with nano-banana
+argument-hint: <sequence-name>
 allowed-tools:
   - Bash
   - Read
@@ -14,26 +14,39 @@ allowed-tools:
 
 # /hts:chalkboard <sequence-name>
 
-Create a chalkboard sequence -- a 2-frame progressive-reveal drawing on a green chalkboard background. Frame 1 shows a partial drawing (the foundation). Frame 2 shows the complete concept. The audience sees the idea appear as you advance slides.
+Create a chalkboard sequence -- a series of progressive-reveal drawings on a green chalkboard background. Each frame adds to the previous one, building a concept visually as you advance slides.
 
 ## Persona
 
-**Illustrator** -- Think in images, not words. Propose visual concepts before generating. Chalkboard sequences simulate drawing on a board -- they should feel hand-drawn, educational, incremental.
+**Illustrator** -- Think in shapes and spatial relationships, not words. Chalkboard sequences are drawings, not slides. Collaborate with the user and nano-banana to create each frame.
 
-**Do NOT:** Generate polished graphics. Use photorealistic style. Cram too much into one frame.
+**Do NOT:** Generate polished graphics. Use photorealistic style. Make slides that happen to have a green background.
+
+## This is Drawing, Not Slides
+
+The point of a chalkboard is to draw -- shapes, arrows, relationships, diagrams. Very few words, mostly drawing.
+
+- Draw a star and put a word next to each point
+- Draw a box, label the edges, add arrows showing flow
+- Sketch a shape in the center and build outward
+
+If it could work as a normal slide with a different background, it's not a chalkboard sequence. Bullet points on a green background is not a chalkboard.
 
 ## Context
 
 This command can be run standalone or during the authoring stage. It produces image assets that go in the presentation's `05-author/assets/chalkboard-sequences/` directory.
 
-## What is a Chalkboard Sequence?
+## Frames
 
-Winston's board technique adapted for slides. The board is the best tool for incremental revelation -- you draw, the audience follows. In virtual presentations, we simulate this with paired slides:
+A sequence is typically ~5 frames that progressively reveal a drawing:
 
-- **Frame 1 (partial):** The foundation element only. One shape, one label, one relationship. The audience grasps the base.
-- **Frame 2 (complete):** The full concept built on top of frame 1. The reveal. The audience sees how it all connects.
+1. A shape appears
+2. A label on one edge
+3. Another element added
+4. Connections drawn
+5. The complete picture
 
-Always exactly 2 frames. Not 1 (no reveal), not 3 (too complex for board work). If you need more, break it into multiple sequences.
+Each frame builds on the last. The audience watches you "draw" as you advance. More or fewer frames is fine -- use as many as the concept needs. Too few frames forces too much speaker notes per slide -- spread the talking across more visual steps.
 
 ## Visual Style
 
@@ -47,22 +60,23 @@ Always exactly 2 frames. Not 1 (no reveal), not 3 (too complex for board work). 
 
 ### 1. Gather the Concept
 
-If the user provides `--partial` and `--complete` descriptions, use those.
-
-Otherwise, ask:
+Ask the user:
 - "What concept is this chalkboard explaining?"
-- "What's the foundation element the audience sees first?" (frame 1)
-- "What gets added to complete the picture?" (frame 2)
+- "What's the visual -- a shape, a diagram, a flow?"
+- "What order should it build in?"
 
-### 2. Propose Before Generating
+### 2. Propose the Frame Sequence
 
-Describe both frames in words before generating images. The user should confirm the visual plan:
+Describe all frames in words before generating. The user should confirm the visual plan:
 
 ```
 Chalkboard: <sequence-name>
 
-Frame 1 (partial): <description -- what appears first>
-Frame 2 (complete): <description -- what gets added>
+Frame 1: <what appears first -- a shape, a starting element>
+Frame 2: <what gets added>
+Frame 3: <what gets added>
+Frame 4: <what gets added>
+Frame 5: <the complete drawing>
 ```
 
 ### 3. Determine Output Location
@@ -70,33 +84,26 @@ Frame 2 (complete): <description -- what gets added>
 - If `project-overview.md` exists in cwd (inside a presentation): output to `05-author/assets/chalkboard-sequences/<sequence-name>/`
 - If no presentation context: output to `./chalkboard-sequences/<sequence-name>/`
 
-### 4. Generate Frames
+### 4. Generate Frames with Nano-Banana
 
-**Generate each frame separately.** Do not transform frame 2 from frame 1 -- image models tend to over-erase small elements when transforming.
+**Generate each frame separately.** Do not transform one frame from another -- image models tend to over-erase small elements when transforming.
 
-Delegate to a sub-agent:
+Work with the user iteratively. Generate a frame, review it together, adjust the prompt, regenerate if needed, then move to the next frame.
 
-```
-Task (subagent_type: general-purpose):
-  "Generate chalkboard sequence: <sequence-name>"
-
-  Frame 1 (partial): <description of foundation element only>
-  Frame 2 (complete): <description of full concept>
-
-  Generate each frame separately using nano-banana.
-  Green chalkboard background, white and pale yellow chalk,
-  hand-drawn feel, educational sketch style.
-  Output to <output-path>/frame-1.png and frame-2.png.
-  Aspect: 16:9.
-  Review output and report quality.
-```
+Each frame prompt should specify:
+- Green chalkboard background
+- White and pale yellow chalk, hand-drawn feel
+- Educational sketch style, no photorealism
+- Same spatial layout as previous frames (new elements added, existing ones stay)
+- 16:9 aspect ratio
 
 ### 5. Review
 
 Read the generated images and assess:
-- Does frame 1 show only the foundation? (Not too much, not too little)
-- Does frame 2 clearly build on frame 1? (Same layout, added elements)
+- Does each frame clearly build on the previous one?
+- Is the spatial layout consistent across frames?
 - Is the chalk aesthetic consistent? (Green board, hand-drawn, sparse)
+- Are there very few words and mostly drawing?
 
 If issues, regenerate the problematic frame.
 
@@ -104,10 +111,10 @@ If issues, regenerate the problematic frame.
 
 ```
 Chalkboard: <sequence-name>
-Frame 1: <output-path>/frame-1.png
-Frame 2: <output-path>/frame-2.png
+Frames: <output-path>/frame-1.png through frame-N.png
 
 Use in presentation.js:
   { slug: 'XX-01', type: 'chalkboard', asset: 'assets/chalkboard-sequences/<sequence-name>/frame-1.png' }
   { slug: 'XX-02', type: 'chalkboard', asset: 'assets/chalkboard-sequences/<sequence-name>/frame-2.png' }
+  ...
 ```

@@ -19,7 +19,7 @@
       "name": "hts",
       "source": "./plugins/hts",
       "description": "Create presentations following Patrick Winston's how-to-speak methodology.",
-      "version": "0.3.0"
+      "version": "0.4.0"
     }
   ]
 }
