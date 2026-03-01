@@ -1,0 +1,8 @@
+{
+  "name": "presentation",
+  "version": "0.2.0",
+  "description": "Create presentations following Patrick Winston's how-to-speak methodology. Folder-as-presentation model with JS-as-spec authoring and slug-ID slide references.",
+  "author": {
+    "name": "Jeffrey Hicks"
+  }
+}
