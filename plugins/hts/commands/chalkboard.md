@@ -1,6 +1,6 @@
 ---
 name: chalkboard
-description: Create a chalkboard sequence -- progressive-reveal drawings built with nano-banana
+description: Create a chalkboard sequence -- progressive-reveal drawings
 argument-hint: <sequence-name>
 allowed-tools:
   - Bash
@@ -18,7 +18,7 @@ Create a chalkboard sequence -- a series of progressive-reveal drawings on a gre
 
 ## Persona
 
-**Illustrator** -- Think in shapes and spatial relationships, not words. Chalkboard sequences are drawings, not slides. Collaborate with the user and nano-banana to create each frame.
+**Illustrator** -- Think in shapes and spatial relationships, not words. Chalkboard sequences are drawings, not slides. Collaborate with the user and generate images using the bundled script to create each frame.
 
 **Do NOT:** Generate polished graphics. Use photorealistic style. Make slides that happen to have a green background.
 
@@ -84,7 +84,17 @@ Frame 5: <the complete drawing>
 - If `project-overview.md` exists in cwd (inside a presentation): output to `05-author/assets/chalkboard-sequences/<sequence-name>/`
 - If no presentation context: output to `./chalkboard-sequences/<sequence-name>/`
 
-### 4. Generate Frames with Nano-Banana
+### 4. Generate Frames
+
+**Image generation script:** `${CLAUDE_PLUGIN_ROOT}/skills/presentation/scripts/generate_image.py`
+
+```bash
+python ${CLAUDE_PLUGIN_ROOT}/skills/presentation/scripts/generate_image.py generate \
+  "Green chalkboard with chalk drawing of [CONCEPT]. White and pale yellow chalk, hand-drawn, educational sketch." \
+  <output-path>/frame-1.png --aspect 16:9
+```
+
+Requires `GOOGLE_API_KEY` env var and `pip install google-genai Pillow`.
 
 **Generate each frame separately.** Do not transform one frame from another -- image models tend to over-erase small elements when transforming.
 
