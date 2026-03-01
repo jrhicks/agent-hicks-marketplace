@@ -1,7 +1,6 @@
 ---
 name: author
 description: Build slides in JS, iterate on PPTX directly
-argument-hint: <presentation-name>
 allowed-tools:
   - Bash
   - Read

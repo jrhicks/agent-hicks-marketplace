@@ -1,7 +1,6 @@
 ---
 name: brain-dump
 description: Dump raw content for the presentation
-argument-hint: <presentation-name>
 allowed-tools:
   - Bash
   - Read

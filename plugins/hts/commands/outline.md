@@ -1,7 +1,6 @@
 ---
 name: outline
 description: Design the talk architecture and media plan
-argument-hint: <presentation-name>
 allowed-tools:
   - Bash
   - Read

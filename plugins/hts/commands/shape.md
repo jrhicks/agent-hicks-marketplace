@@ -1,7 +1,6 @@
 ---
 name: shape
 description: Define audience, extract core idea, build Star elements
-argument-hint: <presentation-name>
 allowed-tools:
   - Bash
   - Read

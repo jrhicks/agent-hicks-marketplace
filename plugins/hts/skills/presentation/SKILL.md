@@ -26,11 +26,11 @@ Create presentations using Patrick Winston's how-to-speak methodology. Presentat
 ## Usage
 
 ```
-/hts:start <presentation-name> [--label inform|expose|persuade]
-/hts:brain-dump <presentation-name>
-/hts:shape <presentation-name>
-/hts:outline <presentation-name>
-/hts:author <presentation-name>
+/hts:start [--label inform|expose|persuade]
+/hts:brain-dump
+/hts:shape
+/hts:outline
+/hts:author
 /hts:chalkboard <sequence-name>
 ```
 
@@ -242,9 +242,10 @@ Stage guides weave in relevant Winston techniques at the point of use.
 ## Examples
 
 ```
-/hts:start all-hands-q1 --label inform
-/hts:brain-dump all-hands-q1
-/hts:shape all-hands-q1
-/hts:outline all-hands-q1
-/hts:author all-hands-q1
+cd ~/talks/all-hands-q1
+/hts:start --label inform
+/hts:brain-dump
+/hts:shape
+/hts:outline
+/hts:author
 ```
