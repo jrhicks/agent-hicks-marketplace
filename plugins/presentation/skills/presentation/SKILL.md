@@ -31,6 +31,7 @@ Create presentations using Patrick Winston's how-to-speak methodology. Presentat
 /presentation:shape <presentation-name>
 /presentation:outline <presentation-name>
 /presentation:author <presentation-name>
+/presentation:chalkboard <sequence-name>
 ```
 
 All commands operate on the current working directory. The user should cd into their presentation folder before running commands.
@@ -149,26 +150,6 @@ Deliverables accumulate in the presentation folder, numbered to align with their
   - `assets/` -- images, chalkboard sequences, prop sequences, story sequences
   - `presentation.pptx` -- generated output (.gitignore)
   - `presentation.pdf` -- PDF export (.gitignore)
-
-## Example: Agentic Success Defined
-
-A complete finished presentation lives at `${CLAUDE_PLUGIN_ROOT}/skills/presentation/examples/agentic-success/`. It shows every stage's deliverables for a persuade-label talk:
-
-```
-examples/agentic-success/
-├── project-overview.md           # metadata + stage: done
-├── discussion.md                 # aha moments captured during the process
-├── 02-brain-dump.md              # TLDR
-├── 02-brain-dump/                # raw dumps
-├── 03-shape.md                   # locked-in shape (compilation)
-├── 03-shape/                     # brainstorm sessions
-├── 04-outline.md                 # locked-in outline (compilation)
-├── 04-outline/                   # brainstorm sessions
-└── 05-author/
-    └── presentation.js           # the JS file that produces the PPTX
-```
-
-Reference this example when you need to see what a deliverable looks like at any stage.
 
 ## How-to-Speak Reference
 
